@@ -9,7 +9,7 @@
 
 <p>This component demonstrates fetching data from a service.</p>
 
-@if (forecasts == null || sunsetTimes == null)
+@if (forecasts == null || sunsetLookup == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -29,7 +29,7 @@ else
             @for (int i = 0; i < forecasts.Length; i++)
             {
                 var forecast = forecasts[i];
-                var sunset = sunsetTimes.FirstOrDefault(s => s.Date == forecast.Date);
+                sunsetLookup.TryGetValue(forecast.Date, out var sunset);
                 <tr>
                     <td>@forecast.Date.ToShortDateString()</td>
                     <td>@forecast.TemperatureC</td>
@@ -44,11 +44,12 @@ else
 
 @code {
     private WeatherForecast[]? forecasts;
-    private SunsetInfo[]? sunsetTimes;
+    private Dictionary<DateOnly, SunsetInfo>? sunsetLookup;
 
     protected override async Task OnInitializedAsync()
     {
         forecasts = await ForecastClient.GetForecastAsync(DateTime.Now);
-        sunsetTimes = await SunsetClient.GetSunsetRangeAsync(DateOnly.FromDateTime(DateTime.Now.AddDays(1)), 5);
+        var sunsetTimes = await SunsetClient.GetSunsetRangeAsync(DateOnly.FromDateTime(DateTime.Now.AddDays(1)), 5);
+        sunsetLookup = sunsetTimes.ToDictionary(s => s.Date);
     }
 }
