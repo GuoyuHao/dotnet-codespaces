@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using FrontEnd.Data
 @inject WeatherForecastClient ForecastClient
+@inject SunsetClient SunsetClient
 
 <PageTitle>Weather forecast</PageTitle>
 
@@ -8,7 +9,7 @@
 
 <p>This component demonstrates fetching data from a service.</p>
 
-@if (forecasts == null)
+@if (forecasts == null || sunsetLookup == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -21,16 +22,20 @@ else
                 <th>Temp. (C)</th>
                 <th>Temp. (F)</th>
                 <th>Summary</th>
+                <th>Sunset Time</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @for (int i = 0; i < forecasts.Length; i++)
             {
+                var forecast = forecasts[i];
+                sunsetLookup.TryGetValue(forecast.Date, out var sunset);
                 <tr>
                     <td>@forecast.Date.ToShortDateString()</td>
                     <td>@forecast.TemperatureC</td>
                     <td>@forecast.TemperatureF</td>
                     <td>@forecast.Summary</td>
+                    <td>@(sunset?.FormattedTime ?? "N/A")</td>
                 </tr>
             }
         </tbody>
@@ -39,9 +44,12 @@ else
 
 @code {
     private WeatherForecast[]? forecasts;
+    private Dictionary<DateOnly, SunsetInfo>? sunsetLookup;
 
     protected override async Task OnInitializedAsync()
     {
         forecasts = await ForecastClient.GetForecastAsync(DateTime.Now);
+        var sunsetTimes = await SunsetClient.GetSunsetRangeAsync(DateOnly.FromDateTime(DateTime.Now.AddDays(1)), 5);
+        sunsetLookup = sunsetTimes.ToDictionary(s => s.Date);
     }
 }
