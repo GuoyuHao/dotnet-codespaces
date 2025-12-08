@@ -10,10 +10,15 @@ Everything you do here is contained within this one codespace. There is no repos
 
 ## 📚 Documentation
 
+**[📖 Documentation Index](DOCS_INDEX.md)** - Complete documentation sitemap and navigation guide
+
+### Core Documents
+
 - **[API Documentation](API.md)** - Detailed API endpoint reference
 - **[Architecture Guide](ARCHITECTURE.md)** - Technical architecture overview
 - **[Development Guide](DEVELOPMENT.md)** - Setup and development workflow
 - **[Contributing Guide](CONTRIBUTING.md)** - How to contribute to this project
+- **[Changelog](CHANGELOG.md)** - Version history and release notes
 
 ## ✨ Features
 
