@@ -4,7 +4,7 @@
 
 This document provides a comprehensive blast radius analysis for the **SampleApp** (referred to as "SAM") within the dotnet-codespaces repository. The blast radius represents the scope of impact, dependencies, and interconnections that would be affected by changes to or failures of the SampleApp system.
 
-**Date**: December 9, 2025  
+**Date**: December 9, 2024  
 **Analyzed System**: SampleApp (SAM)  
 **Repository**: GuoyuHao/dotnet-codespaces
 
