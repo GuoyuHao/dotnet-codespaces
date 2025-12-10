@@ -13,7 +13,7 @@ This report provides a comprehensive analysis of the blast radius for user **Alb
 - **Total Impacted Resources:** 33 Key Vaults
 - **Direct Access Path:** All resources have a single-step access path (direct permissions)
 - **Resource Type:** Microsoft Azure Key Vault (`microsoft.keyvault/vaults`)
-- **Subscription:** All resources belong to subscription `ab48f397-fc82-4634-aa52-62dd91b3ebaa`
+- **Subscription:** All resources belong to subscription `[REDACTED]`
 
 ## Risk Assessment
 
@@ -171,7 +171,7 @@ This direct access pattern means that if Alberto Polak's account is compromised,
 ### Subscription Information
 
 All resources are located in the same Azure subscription:
-- **Subscription ID:** `ab48f397-fc82-4634-aa52-62dd91b3ebaa`
+- **Subscription ID:** `[REDACTED]`
 
 This concentration in a single subscription increases the blast radius impact.
 
