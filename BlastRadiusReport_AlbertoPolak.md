@@ -289,8 +289,8 @@ The following entities are ranked by risk level based on their criticality, nami
 - **Has Vulnerabilities:** No
 
 #### 32. kv-ignite-adatum (Demo/Conference)
-- **Resource ID:** `/subscriptions/ab48f397-fc82-4634-aa52-62dd91b3ebaa/resourcegroups/ignite-woodgroove/providers/microsoft.keyvault/vaults/kv-ignite-adatum`
-- **Resource Group:** ignite-woodgroove
+- **Resource ID:** `/subscriptions/ab48f397-fc82-4634-aa52-62dd91b3ebaa/resourcegroups/ignite-woodgrove/providers/microsoft.keyvault/vaults/kv-ignite-adatum`
+- **Resource Group:** ignite-woodgrove
 - **Risk Factors:** Conference demo environment
 - **Criticality Score:** 0
 - **Has Vulnerabilities:** No
@@ -378,6 +378,8 @@ The entities were ranked based on the following criteria:
    - Financial data: Highest compliance risk
    - PII/Employee data: High compliance risk
    - Technical infrastructure: Medium compliance risk
+
+**Note on Criticality Scores:** The "Criticality Score: 0" shown for each resource is the base score reported by the security graph API. The risk rankings in this report (Critical, High, Medium-High, Medium) are derived from our manual analysis using the methodology above, which considers additional contextual factors beyond the base criticality score. All resources should be considered high-risk due to the direct access pattern and the sensitive nature of Key Vault resources.
 
 ---
 
