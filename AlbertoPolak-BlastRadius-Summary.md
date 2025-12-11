@@ -59,7 +59,13 @@ The following Key Vaults represent the most critical assets in Alberto Polak's b
 | **kv-mdcagentvxbnu** | rg-mdcagent | **MEDIUM** | MDC agent Key Vault |
 | **kv-zavaprivatey2c2v** | rg-mdcagent-validation | **MEDIUM** | MDC agent validation |
 
-### 4. Automation & Integration Key Vaults
+### 4. Financial & Sensitive Data Systems
+
+| Asset Name | Resource Group | Risk Level | Description |
+|------------|----------------|------------|-------------|
+| **payroll01** | woodgrove-sentinelgraph | **CRITICAL** | Payroll system Key Vault - contains sensitive employee financial data |
+
+### 5. Automation & Integration Key Vaults
 
 | Asset Name | Resource Group | Risk Level | Description |
 |------------|----------------|------------|-------------|
@@ -68,7 +74,7 @@ The following Key Vaults represent the most critical assets in Alberto Polak's b
 | **DCEDCRKeyVault** | woodgrove-rg | **MEDIUM** | Data collection endpoint/rules |
 | **mdtiworkbookm5xeucozid** | woodgrove-rg | **MEDIUM** | MDTI workbook integration |
 
-### 5. AI & Modern Workplace Services
+### 6. AI & Modern Workplace Services
 
 | Asset Name | Resource Group | Risk Level | Description |
 |------------|----------------|------------|-------------|
@@ -76,7 +82,7 @@ The following Key Vaults represent the most critical assets in Alberto Polak's b
 | **kv-wgaihub098811020122** | wg-ai-hub | **HIGH** | Woodgrove AI Hub |
 | **ModernWork-kv-xa1e** | modernwork-rg-0x2y | **MEDIUM** | Modern workplace services |
 
-### 6. Authentication & Identity Services
+### 7. Authentication & Identity Services
 
 | Asset Name | Resource Group | Risk Level | Description |
 |------------|----------------|------------|-------------|
@@ -84,22 +90,21 @@ The following Key Vaults represent the most critical assets in Alberto Polak's b
 | **wg-verifiedemployee** | woodgroveverifiedemployee | **MEDIUM** | Verified employee credentials |
 | **wgyubipreregkv** | woodgroveyubicopoc | **MEDIUM** | YubiKey pre-registration |
 
-### 7. Development & Testing Environments
+### 8. Development & Testing Environments
 
 | Asset Name | Resource Group | Risk Level | Description |
 |------------|----------------|------------|-------------|
 | **woodgrove-dev-kv** | woodgrove-rg | **MEDIUM** | Development Key Vault |
 | **MyKeyVault12** | woodgrove-rg | **LOW** | General purpose Key Vault |
 
-### 8. Specialized Services
+### 9. Specialized Services
 
 | Asset Name | Resource Group | Risk Level | Description |
 |------------|----------------|------------|-------------|
 | **sentineldemos** | woodgrove-rg | **MEDIUM** | Sentinel security demos |
-| **payroll01** | woodgrove-sentinelgraph | **HIGH** | Payroll system Key Vault |
 | **parkcitySAP-KV** | woodgrove-alpine | **MEDIUM** | SAP integration |
 | **VmsParkcity** | woodgrove-alpine | **MEDIUM** | Park City VM management |
-| **kv-ignite-adatum** | ignite-woodgroove | **LOW** | Conference/demo environment |
+| **kv-ignite-adatum** | ignite-woodgroove | **LOW** | Conference/demo environment (note: resource group name uses 'woodgroove' variant) |
 
 ---
 
@@ -122,8 +127,10 @@ The following Key Vaults represent the most critical assets in Alberto Polak's b
    - TLS inspection Key Vaults could compromise encrypted communications
    - MDC security vaults could expose security monitoring secrets
 
-4. **Sensitive Data Systems**
-   - Access to payroll systems (payroll01) poses data breach risk
+4. **Financial and Sensitive Data Systems**
+   - Direct access to payroll Key Vault (payroll01) poses critical data breach risk
+   - Compromise could expose employee financial information and payment systems
+   - Potential regulatory violations (PII, financial data protection laws)
    - AI/ML infrastructure access could expose proprietary models and data
    - Identity and authentication systems could enable account takeover attacks
 
