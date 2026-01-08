@@ -90,7 +90,7 @@ public class BlastRadiusAnalysisService : IBlastRadiusAnalysisService
                 Criticality = "High",
                 RiskScore = "85",
                 HasVulnerabilities = false,
-                NumberOfAllNeighbours = 5,
+                NumberOfAllNeighbors = 5,
                 Edges = "[]"
             });
 
@@ -103,7 +103,7 @@ public class BlastRadiusAnalysisService : IBlastRadiusAnalysisService
                 Criticality = "Critical",
                 RiskScore = "95",
                 HasVulnerabilities = true,
-                NumberOfAllNeighbours = 12,
+                NumberOfAllNeighbors = 12,
                 Edges = "[{\"source\":\"user-001\",\"target\":\"vm-001\",\"type\":\"CanAccess\"}]"
             });
 
@@ -116,7 +116,7 @@ public class BlastRadiusAnalysisService : IBlastRadiusAnalysisService
                 Criticality = "Critical",
                 RiskScore = "90",
                 HasVulnerabilities = false,
-                NumberOfAllNeighbours = 8,
+                NumberOfAllNeighbors = 8,
                 Edges = "[{\"source\":\"user-001\",\"target\":\"storage-001\",\"type\":\"CanRead\"}]"
             });
 
@@ -129,7 +129,7 @@ public class BlastRadiusAnalysisService : IBlastRadiusAnalysisService
                 Criticality = "Critical",
                 RiskScore = "92",
                 HasVulnerabilities = false,
-                NumberOfAllNeighbours = 6,
+                NumberOfAllNeighbors = 6,
                 Edges = "[{\"source\":\"user-001\",\"target\":\"db-001\",\"type\":\"CanExecute\"}]"
             });
 
@@ -142,7 +142,7 @@ public class BlastRadiusAnalysisService : IBlastRadiusAnalysisService
                 Criticality = "Critical",
                 RiskScore = "88",
                 HasVulnerabilities = false,
-                NumberOfAllNeighbours = 15,
+                NumberOfAllNeighbors = 15,
                 Edges = "[{\"source\":\"user-001\",\"target\":\"keyvault-001\",\"type\":\"CanListSecrets\"}]"
             });
         }

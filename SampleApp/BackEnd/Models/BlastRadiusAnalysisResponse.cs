@@ -69,7 +69,7 @@ public record ExposureNode
     /// <summary>
     /// Number of neighboring nodes
     /// </summary>
-    public long NumberOfAllNeighbours { get; init; }
+    public long NumberOfAllNeighbors { get; init; }
     
     /// <summary>
     /// Edges connecting to this node
