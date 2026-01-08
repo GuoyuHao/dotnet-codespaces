@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.OpenApi;
 using Scalar.AspNetCore;
+using BackEnd.Services;
+using BackEnd.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,9 @@ builder.Services.AddOpenApi(options =>
         return Task.CompletedTask;
     });
 });
+
+// Register blast radius analysis service
+builder.Services.AddSingleton<IBlastRadiusAnalysisService, BlastRadiusAnalysisService>();
 
 var app = builder.Build();
 
@@ -68,6 +73,30 @@ app.MapGet("/sunset/range", (DateOnly? startDate, int days = 7) =>
     return sunsetTimes;
 })
 .WithName("GetSunsetRange");
+
+// Blast Radius Security Analysis Endpoints
+app.MapGet("/security/blast-radius/alberto-polak", async (IBlastRadiusAnalysisService service) =>
+{
+    var result = await service.GetAlbertoPolakBlastRadiusAsync();
+    return Results.Ok(result);
+})
+.WithName("GetAlbertoPolakBlastRadius")
+.WithSummary("Get blast radius security analysis for Alberto Polak's account")
+.WithDescription("Analyzes the exposure perimeter and blast radius for Alberto Polak's account, showing all resources and assets that could be impacted if the account is compromised.");
+
+app.MapPost("/security/blast-radius", async (BlastRadiusAnalysisRequest request, IBlastRadiusAnalysisService service) =>
+{
+    if (string.IsNullOrWhiteSpace(request.TargetName))
+    {
+        return Results.BadRequest(new { error = "TargetName is required" });
+    }
+
+    var result = await service.AnalyzeBlastRadiusAsync(request);
+    return Results.Ok(result);
+})
+.WithName("AnalyzeBlastRadius")
+.WithSummary("Analyze blast radius for any target account")
+.WithDescription("Performs a blast radius security analysis for a specified target account or resource, identifying the exposure perimeter and potential impact.");
 
 app.Run();
 

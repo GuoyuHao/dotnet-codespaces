@@ -37,6 +37,66 @@ You can also run this repository locally by following these instructions:
 
 ![VS Code stop debuggin on both backend and frontend](images/StopRun.png)
 
+## Features
+
+### Blast Radius Security Analysis
+
+This application includes a blast radius security analysis feature that analyzes the exposure perimeter for user accounts. The blast radius represents the potential impact if an account is compromised, showing all resources and assets that could be accessed.
+
+#### Available Endpoints
+
+**Get Alberto Polak's Blast Radius**
+```
+GET /security/blast-radius/alberto-polak
+```
+
+Returns the blast radius analysis for Alberto Polak's account, showing:
+- All accessible resources (VMs, Storage Accounts, Databases, Key Vaults)
+- Risk scores and criticality levels
+- Vulnerability status
+- Connection relationships
+
+Example response:
+```json
+{
+  "targetName": "Alberto Polak",
+  "nodes": [
+    {
+      "nodeId": "user-001",
+      "nodeName": "Alberto Polak",
+      "nodeLabel": "User",
+      "criticality": "High",
+      "riskScore": "85",
+      "hasVulnerabilities": false
+    },
+    {
+      "nodeId": "vm-001",
+      "nodeName": "ProductionWebServer01",
+      "nodeLabel": "VirtualMachine",
+      "criticality": "Critical",
+      "riskScore": "95",
+      "hasVulnerabilities": true
+    }
+  ],
+  "totalExposedNodes": 5,
+  "analysisTimestamp": "2026-01-08T23:39:35Z"
+}
+```
+
+**Analyze Any Target**
+```
+POST /security/blast-radius
+Content-Type: application/json
+
+{
+  "targetName": "account-name",
+  "minPathLength": 1,
+  "maxPathLength": 5,
+  "resultsCountLimit": 1000
+}
+```
+
+Performs a customizable blast radius analysis for any target account or resource.
 
 ## Contributing
 
