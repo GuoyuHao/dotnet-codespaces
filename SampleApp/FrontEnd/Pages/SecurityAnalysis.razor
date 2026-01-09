@@ -1,10 +1,10 @@
 @page "/security-analysis"
 @using FrontEnd.Data
 
-<PageTitle>Security Analysis - Alberto Polak</PageTitle>
+<PageTitle>Security Analysis - @AccountName</PageTitle>
 
 <h1>Blast Radius Security Analysis</h1>
-<h2>Account: Alberto Polak</h2>
+<h2>Account: @AccountName</h2>
 
 <p>This page displays the blast radius and exposure perimeter analysis for the Alberto Polak account.</p>
 
@@ -27,7 +27,7 @@ else if (analysisComplete)
 {
     <div class="card mt-3">
         <div class="card-header bg-primary text-white">
-            <h3>Analysis Results for Alberto Polak</h3>
+            <h3>Analysis Results for @AccountName</h3>
         </div>
         <div class="card-body">
             @if (exposureData != null && exposureData.TotalNodes > 0)
@@ -81,7 +81,7 @@ else if (analysisComplete)
             {
                 <div class="alert alert-success" role="alert">
                     <h4 class="alert-heading">Analysis Complete</h4>
-                    <p>No exposure perimeter detected for the Alberto Polak account.</p>
+                    <p>No exposure perimeter detected for the @AccountName account.</p>
                     <hr>
                     <p class="mb-0">This account appears to have minimal blast radius with no accessible critical resources through walkable paths.</p>
                 </div>
@@ -127,6 +127,8 @@ else if (hasError)
 </div>
 
 @code {
+    private const string AccountName = "Alberto Polak";
+    
     private bool isLoading = false;
     private bool analysisComplete = false;
     private bool hasError = false;
@@ -154,7 +156,7 @@ else if (hasError)
             // In a real implementation, this would call the actual exposure perimeter API
             exposureData = new ExposureAnalysisData
             {
-                AccountName = "Alberto Polak",
+                AccountName = AccountName,
                 TotalNodes = 0,
                 CriticalAssets = 0,
                 RiskScore = "Low",
@@ -186,23 +188,5 @@ else if (hasError)
             "low" => "success",
             _ => "secondary"
         };
-    }
-
-    public class ExposureAnalysisData
-    {
-        public string AccountName { get; set; } = "";
-        public int TotalNodes { get; set; }
-        public int CriticalAssets { get; set; }
-        public string RiskScore { get; set; } = "Unknown";
-        public bool HasVulnerabilities { get; set; }
-        public List<ExposedNode> ExposedNodes { get; set; } = new();
-    }
-
-    public class ExposedNode
-    {
-        public string NodeName { get; set; } = "";
-        public string NodeType { get; set; } = "";
-        public string RiskLevel { get; set; } = "";
-        public int PathLength { get; set; }
     }
 }
