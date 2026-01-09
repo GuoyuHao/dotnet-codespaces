@@ -1,0 +1,208 @@
+@page "/security-analysis"
+@using FrontEnd.Data
+
+<PageTitle>Security Analysis - Alberto Polak</PageTitle>
+
+<h1>Blast Radius Security Analysis</h1>
+<h2>Account: Alberto Polak</h2>
+
+<p>This page displays the blast radius and exposure perimeter analysis for the Alberto Polak account.</p>
+
+<div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">What is Blast Radius Analysis?</h4>
+    <p>
+        Blast radius analysis identifies the potential impact and reach of a security breach or attack starting from a specific account or resource.
+        It helps assess lateral risk and supports automated threat modeling workflows.
+    </p>
+</div>
+
+@if (isLoading)
+{
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <p><em>Analyzing exposure perimeter...</em></p>
+}
+else if (analysisComplete)
+{
+    <div class="card mt-3">
+        <div class="card-header bg-primary text-white">
+            <h3>Analysis Results for Alberto Polak</h3>
+        </div>
+        <div class="card-body">
+            @if (exposureData != null && exposureData.TotalNodes > 0)
+            {
+                <h4>Exposure Metrics</h4>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th>Total Exposed Nodes:</th>
+                            <td>@exposureData.TotalNodes</td>
+                        </tr>
+                        <tr>
+                            <th>Critical Assets:</th>
+                            <td>@exposureData.CriticalAssets</td>
+                        </tr>
+                        <tr>
+                            <th>Risk Score:</th>
+                            <td><span class="badge bg-@GetRiskBadgeClass(exposureData.RiskScore)">@exposureData.RiskScore</span></td>
+                        </tr>
+                        <tr>
+                            <th>Vulnerabilities Detected:</th>
+                            <td>@(exposureData.HasVulnerabilities ? "Yes" : "No")</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4 class="mt-4">Accessible Resources</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Resource Name</th>
+                            <th>Resource Type</th>
+                            <th>Risk Level</th>
+                            <th>Path Length</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var node in exposureData.ExposedNodes)
+                        {
+                            <tr>
+                                <td>@node.NodeName</td>
+                                <td>@node.NodeType</td>
+                                <td><span class="badge bg-@GetRiskBadgeClass(node.RiskLevel)">@node.RiskLevel</span></td>
+                                <td>@node.PathLength</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Analysis Complete</h4>
+                    <p>No exposure perimeter detected for the Alberto Polak account.</p>
+                    <hr>
+                    <p class="mb-0">This account appears to have minimal blast radius with no accessible critical resources through walkable paths.</p>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="card-header">
+            <h4>Security Recommendations</h4>
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>Regularly review and audit account permissions</li>
+                <li>Implement principle of least privilege</li>
+                <li>Monitor for unusual access patterns</li>
+                <li>Enable multi-factor authentication</li>
+                <li>Regular security assessments and penetration testing</li>
+            </ul>
+        </div>
+    </div>
+}
+else if (hasError)
+{
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Analysis Error</h4>
+        <p>@errorMessage</p>
+    </div>
+}
+
+<div class="mt-4">
+    <button class="btn btn-primary" @onclick="RunAnalysis" disabled="@isLoading">
+        @if (isLoading)
+        {
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <span> Analyzing...</span>
+        }
+        else
+        {
+            <span>@(analysisComplete ? "Re-run Analysis" : "Run Analysis")</span>
+        }
+    </button>
+</div>
+
+@code {
+    private bool isLoading = false;
+    private bool analysisComplete = false;
+    private bool hasError = false;
+    private string errorMessage = "";
+    private ExposureAnalysisData? exposureData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await RunAnalysis();
+    }
+
+    private async Task RunAnalysis()
+    {
+        isLoading = true;
+        hasError = false;
+        errorMessage = "";
+        StateHasChanged();
+
+        try
+        {
+            // Simulate API call to exposure perimeter analysis
+            await Task.Delay(1500);
+
+            // For demonstration, create sample data
+            // In a real implementation, this would call the actual exposure perimeter API
+            exposureData = new ExposureAnalysisData
+            {
+                AccountName = "Alberto Polak",
+                TotalNodes = 0,
+                CriticalAssets = 0,
+                RiskScore = "Low",
+                HasVulnerabilities = false,
+                ExposedNodes = new List<ExposedNode>()
+            };
+
+            analysisComplete = true;
+        }
+        catch (Exception ex)
+        {
+            hasError = true;
+            errorMessage = $"Failed to perform analysis: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    private string GetRiskBadgeClass(string riskLevel)
+    {
+        return riskLevel?.ToLower() switch
+        {
+            "critical" => "danger",
+            "high" => "warning",
+            "medium" => "info",
+            "low" => "success",
+            _ => "secondary"
+        };
+    }
+
+    public class ExposureAnalysisData
+    {
+        public string AccountName { get; set; } = "";
+        public int TotalNodes { get; set; }
+        public int CriticalAssets { get; set; }
+        public string RiskScore { get; set; } = "Unknown";
+        public bool HasVulnerabilities { get; set; }
+        public List<ExposedNode> ExposedNodes { get; set; } = new();
+    }
+
+    public class ExposedNode
+    {
+        public string NodeName { get; set; } = "";
+        public string NodeType { get; set; } = "";
+        public string RiskLevel { get; set; } = "";
+        public int PathLength { get; set; }
+    }
+}

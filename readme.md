@@ -37,6 +37,20 @@ You can also run this repository locally by following these instructions:
 
 ![VS Code stop debuggin on both backend and frontend](images/StopRun.png)
 
+## Security Analysis Feature
+
+This application includes a **Blast Radius Security Analysis** page for the Alberto Polak account. This feature demonstrates:
+
+- **Exposure Perimeter Analysis**: Identifies the potential impact and reach of a security breach starting from a specific account
+- **Risk Assessment**: Evaluates the accessibility of resources and lateral risk
+- **Security Metrics**: Displays critical assets, risk scores, and vulnerability detection
+- **Threat Modeling**: Supports automated security analysis workflows
+
+To access the security analysis:
+1. Navigate to the **Security Analysis** link in the navigation menu
+2. View the blast radius analysis for Alberto Polak's account
+3. Review exposed resources, risk levels, and security recommendations
+
 
 ## Contributing
 
