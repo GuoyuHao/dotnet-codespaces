@@ -178,14 +178,17 @@ else if (hasError)
         }
     }
 
-    private string GetRiskBadgeClass(string riskLevel)
+    private string GetRiskBadgeClass(string? riskLevel)
     {
-        return riskLevel?.ToLower() switch
+        if (string.IsNullOrEmpty(riskLevel))
+            return "secondary";
+
+        return riskLevel switch
         {
-            "critical" => "danger",
-            "high" => "warning",
-            "medium" => "info",
-            "low" => "success",
+            _ when riskLevel.Equals("critical", StringComparison.OrdinalIgnoreCase) => "danger",
+            _ when riskLevel.Equals("high", StringComparison.OrdinalIgnoreCase) => "warning",
+            _ when riskLevel.Equals("medium", StringComparison.OrdinalIgnoreCase) => "info",
+            _ when riskLevel.Equals("low", StringComparison.OrdinalIgnoreCase) => "success",
             _ => "secondary"
         };
     }
